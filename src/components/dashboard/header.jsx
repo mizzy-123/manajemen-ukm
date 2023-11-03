@@ -22,7 +22,7 @@ export default function Header({ token, roleid }) {
     setTimeout(() => {
       // location.reload(true);
       window.location.reload();
-    }, 1000);
+    }, 2000);
   };
 
   const LogoutClick = (e) => {
@@ -31,7 +31,7 @@ export default function Header({ token, roleid }) {
     router.refresh();
     setTimeout(() => {
       window.location.reload();
-    }, 1000);
+    }, 2000);
   };
 
   useEffect(() => {

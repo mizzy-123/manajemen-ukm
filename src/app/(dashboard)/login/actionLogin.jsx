@@ -26,12 +26,14 @@ export default function ActionLogin() {
         console.log(response.data);
         saveToken({ token: response.data.token });
         SaveRole({ role: responseRole.data.data[0].id });
-        // redirect("/dashboard", "push");
+        // setTimeout(() => {
+        //   redirect("/dashboard");
+        // }, 3000);
         router.push("/dashboard");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-        // setLoading(false);
+        // setTimeout(() => {
+        //   location.reload(true);
+        // }, 3000);
+        // window.location.href = `${process.env.NEXT_PUBLIC_APP_URL}/dashboard`;
       }
     } catch (error) {
       console.log(error);

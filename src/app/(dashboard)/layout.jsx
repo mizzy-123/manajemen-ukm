@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function LoginLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       {/* <Head>
         <link rel="stylesheet" href="/assets/css/dashlite.css?ver=3.0.0" />
         <link id="skin-default" rel="stylesheet" href="/assets/css/theme.css?ver=3.0.0" />

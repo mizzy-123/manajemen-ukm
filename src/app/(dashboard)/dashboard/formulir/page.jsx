@@ -6,6 +6,7 @@ export default async function LihatCalonAnggota() {
   // const roleid = cookies().get("role");
   const cookieStore = cookies();
   const token = cookieStore.get("token");
+  const roleid = cookieStore.get("role");
 
   // console.log(data);
 
@@ -33,15 +34,26 @@ export default async function LihatCalonAnggota() {
                 </div>
               </div>
               <div className="nk-block nk-block-lg">
-                <div className="nk-block-head">
+                <div className="nk-block-head d-flex justify-content-between">
                   <div className="nk-block-head-content">
                     <h4 className="nk-block-title">Transaction List - With Action</h4>
                     <p>
                       The following table can be use for <strong className="text-primary">invoice, payment history</strong> related transaction.
                     </p>
                   </div>
+                  <div className="nk-block-head-content">
+                    <li className="nk-block-tools-opt">
+                      <a href="#" className="btn btn-icon btn-primary d-md-none">
+                        <em className="icon ni ni-plus"></em>
+                      </a>
+                      <a href="#" className="btn btn-primary d-none d-md-inline-flex">
+                        <em className="icon ni ni-plus"></em>
+                        <span>Add</span>
+                      </a>
+                    </li>
+                  </div>
                 </div>
-                <ActionTable token={token} />
+                <ActionTable token={token} roleid={roleid.value} />
               </div>
             </div>
           </div>

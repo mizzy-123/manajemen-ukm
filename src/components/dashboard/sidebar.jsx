@@ -63,7 +63,7 @@ function Sidebar({ role }) {
               {/* <!-- .nk-menu-item --> */}
               {/* <!-- .nk-menu-heading --> */}
               {role == 2 && (
-                <li className={`nk-menu-item has-sub ${pathname === "/dashboard/lihat-calon-anggota" ? "active" : ""}`}>
+                <li className={`nk-menu-item has-sub ${pathname === "/dashboard/formulir" ? "active" : ""}`}>
                   <a href="#" className="nk-menu-link nk-menu-toggle">
                     <span className="nk-menu-icon">
                       <em className="icon ni ni-users-fill"></em>
@@ -77,8 +77,8 @@ function Sidebar({ role }) {
                       </a>
                     </li>
                     <li className="nk-menu-item">
-                      <Link href="/dashboard/lihat-calon-anggota" className="nk-menu-link">
-                        <span className="nk-menu-text">Lihat calon anggota</span>
+                      <Link href="/dashboard/formulir" className="nk-menu-link">
+                        <span className="nk-menu-text">Formulir & Calon anggota</span>
                       </Link>
                     </li>
                   </ul>
