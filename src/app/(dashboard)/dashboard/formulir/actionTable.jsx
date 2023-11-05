@@ -5,7 +5,7 @@ import GetMyOrganization from "@/api/getMyOrganization";
 import { useEffect, useState } from "react";
 import TableResult from "./tableResult";
 
-export default function ActionTable({ token, roleid }) {
+export default function ActionTable({ token, roleid, ukm, idukm }) {
   // const [formulir, setFormulir] = useState([]);
   const [organizaton, setOrganization] = useState([]);
   const [organizationId, setOrganizationId] = useState(null);
@@ -35,6 +35,8 @@ export default function ActionTable({ token, roleid }) {
     e.preventDefault();
     setOrganizationId(id);
     setNamaOrganisasi(name);
+    ukm(name);
+    idukm(id);
     console.log("id", id);
   };
   return (

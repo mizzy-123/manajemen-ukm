@@ -1,6 +1,8 @@
 "use client";
 
 import GetDaftarCalon from "@/api/getDaftarCalon";
+import PostSelectedAngkatCalon from "@/api/postSelectedAngkatCalon";
+import PostSelectedRejectCalon from "@/api/postSelectedRejectCalon";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -16,14 +18,20 @@ export default function ActionCalonAnggota({ token, formid }) {
   const [totalPage, setTotalPage] = useState("");
   const search = searchParams.get("search");
   const page = searchParams.get("page");
+  const status = searchParams.get("status");
   const refSearch = useRef(null);
   // const [checked, setChecked] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+
+  const [alert, setAlert] = useState(false);
+  const [alertSuccess, setAlertSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+
   useEffect(() => {
     setIsLoading(true);
     async function fetchData() {
-      const responseCalon = await GetDaftarCalon({ token: token, formid: formid, page: page, search: search });
+      const responseCalon = await GetDaftarCalon({ token: token, formid: formid, page: page, search: search, status: status });
       if (responseCalon.ok) {
         const getDataCalon = await responseCalon.json();
         console.log(getDataCalon);
@@ -36,7 +44,7 @@ export default function ActionCalonAnggota({ token, formid }) {
     fetchData();
     setClient(true);
     console.log("passing", token, formid);
-  }, [search, page, token, formid]);
+  }, [search, page, token, formid, status]);
 
   const paginateClick = (e, url) => {
     e.preventDefault();
@@ -55,8 +63,10 @@ export default function ActionCalonAnggota({ token, formid }) {
       const urlApi = new URL(url);
       const paramsUrl = urlApi.searchParams;
       const page = paramsUrl.get("page");
+      const status = paramsUrl.get("status");
       const params = new URLSearchParams(searchParams);
       params.set("page", page);
+      params.set("status", status);
       router.push(pathname + "?" + params.toString());
       console.log(search);
     }
@@ -66,8 +76,10 @@ export default function ActionCalonAnggota({ token, formid }) {
     const urlApi = new URL(e.target.value);
     const paramsUrl = urlApi.searchParams;
     const page = paramsUrl.get("page");
+    const status = paramsUrl.get("status");
     const params = new URLSearchParams(searchParams);
     params.set("page", page);
+    params.set("status", status);
     router.push(pathname + "?" + params.toString());
     console.log(search);
     console.log("url", e.target.value);
@@ -76,6 +88,7 @@ export default function ActionCalonAnggota({ token, formid }) {
   const handleSearch = (e) => {
     const params = new URLSearchParams(searchParams);
     params.delete("page");
+    params.delete("status");
     params.set("search", refSearch.current.value);
     router.push(pathname + "?" + params.toString());
     console.log("ref", refSearch.current.value);
@@ -104,6 +117,56 @@ export default function ActionCalonAnggota({ token, formid }) {
     setSelectedItems(updatedItems);
   };
 
+  const AcceptClick = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await PostSelectedAngkatCalon({ token: token, selectedData: selectedItems });
+      setMessage(response.data.message);
+      setAlert(false);
+      setAlertSuccess(true);
+      setIsLoading(false);
+      router.refresh();
+    } catch (error) {
+      setMessage(error.response.data.message);
+      setAlert(true);
+      setAlertSuccess(false);
+      setIsLoading(false);
+    }
+  };
+
+  const RejectClick = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await PostSelectedRejectCalon({ selectedData: selectedItems, token: token });
+      setMessage(response.data.message);
+      setAlert(false);
+      setAlertSuccess(true);
+      setIsLoading(false);
+      router.refresh();
+    } catch (error) {
+      setMessage(error.response.data.message);
+      setAlert(true);
+      setAlertSuccess(false);
+      setIsLoading(false);
+    }
+  };
+
+  const StatusClick = (e, id_status) => {
+    e.preventDefault();
+    const params = new URLSearchParams(searchParams);
+    if (params.has("page")) {
+      params.delete("page");
+    }
+    if (params.has("status")) {
+      params.delete("search");
+    }
+    params.set("status", id_status);
+    router.push(pathname + "?" + params.toString());
+    console.log("id_status", id_status);
+  };
+
   return (
     <>
       {isClient && (
@@ -116,7 +179,7 @@ export default function ActionCalonAnggota({ token, formid }) {
                   <p>You have total 2,595 users.</p>
                 </div>
               </div>
-              <div className="nk-block-head-content">
+              {/* <div className="nk-block-head-content">
                 <div className="toggle-wrap nk-block-tools-toggle">
                   <a href="#" className="btn btn-icon btn-trigger toggle-expand me-n1" data-target="more-options">
                     <em className="icon ni ni-more-v"></em>
@@ -169,9 +232,24 @@ export default function ActionCalonAnggota({ token, formid }) {
                     </ul>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
+          {alert ? (
+            <div className="alert alert-danger" role="alert">
+              {message}
+            </div>
+          ) : (
+            ""
+          )}
+
+          {alertSuccess ? (
+            <div className="alert alert-success" role="alert">
+              {message}
+            </div>
+          ) : (
+            ""
+          )}
           <div className="form-control-wrap col-md-6 col-sm-6 mb-3">
             <div className="input-group">
               <input ref={refSearch} type="text" className="form-control" placeholder="Search..." />
@@ -179,6 +257,32 @@ export default function ActionCalonAnggota({ token, formid }) {
                 <button className="btn btn-outline-primary btn-dim" onClick={(e) => handleSearch(e)}>
                   Search
                 </button>
+              </div>
+              <div className="input-group-append ms-3">
+                <div className="drodown">
+                  <a href="#" className="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" data-bs-toggle="dropdown">
+                    Status
+                  </a>
+                  <div className="dropdown-menu dropdown-menu-end">
+                    <ul className="link-list-opt no-bdr">
+                      <li>
+                        <a href="#" onClick={(e) => StatusClick(e, 1)}>
+                          <span>Accept</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" onClick={(e) => StatusClick(e, 3)}>
+                          <span>Reject</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" onClick={(e) => StatusClick(e, 2)}>
+                          <span>Pending</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -206,9 +310,9 @@ export default function ActionCalonAnggota({ token, formid }) {
                 <div className="nk-tb-col tb-col-lg">
                   <span className="sub-text">Tanggal daftar</span>
                 </div>
-                {/* <div className="nk-tb-col tb-col-md">
+                <div className="nk-tb-col tb-col-md">
                   <span className="sub-text">Status</span>
-                </div> */}
+                </div>
                 <div className="nk-tb-col nk-tb-col-tools">
                   <ul className="nk-tb-actions gx-1 my-n1">
                     <li>
@@ -219,18 +323,18 @@ export default function ActionCalonAnggota({ token, formid }) {
                         <div className="dropdown-menu dropdown-menu-end">
                           <ul className="link-list-opt no-bdr">
                             <li>
-                              <a href="#">
+                              <a href="#" onClick={(e) => AcceptClick(e)}>
                                 <em className="icon ni ni-mail"></em>
-                                <span>Send Email to All</span>
+                                <span>Accept</span>
                               </a>
                             </li>
                             <li>
-                              <a href="#">
+                              <a href="#" onClick={(e) => RejectClick(e)}>
                                 <em className="icon ni ni-na"></em>
-                                <span>Suspend Selected</span>
+                                <span>Reject</span>
                               </a>
                             </li>
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <em className="icon ni ni-trash"></em>
                                 <span>Remove Seleted</span>
@@ -241,7 +345,7 @@ export default function ActionCalonAnggota({ token, formid }) {
                                 <em className="icon ni ni-shield-star"></em>
                                 <span>Reset Password</span>
                               </a>
-                            </li>
+                            </li> */}
                           </ul>
                         </div>
                       </div>
@@ -258,7 +362,7 @@ export default function ActionCalonAnggota({ token, formid }) {
                     </div>
                   </div>
                   <div className="nk-tb-col">
-                    <a href="html/ecommerce/customer-details.html">
+                    <a href="#">
                       <div className="user-card">
                         <div className="user-info">
                           <span className="tb-lead">
@@ -364,12 +468,22 @@ export default function ActionCalonAnggota({ token, formid }) {
                       </div>
                     </div>
                     <div className="nk-tb-col">
-                      <a href="html/ecommerce/customer-details.html">
+                      <a href="#">
                         <div className="user-card">
                           <div className="user-info">
                             <span className="tb-lead">
                               {value.name}
-                              {/* <span className="dot dot-success d-md-none ms-1"></span> */}
+                              <span
+                                className={`dot ${(() => {
+                                  if (value.status == 3) {
+                                    return "dot-danger";
+                                  } else if (value.status == 1) {
+                                    return "dot-success";
+                                  } else {
+                                    return "dot-warning";
+                                  }
+                                })()} d-md-none ms-1`}
+                              ></span>
                             </span>
                             <span>{value.email}</span>
                           </div>
@@ -399,11 +513,31 @@ export default function ActionCalonAnggota({ token, formid }) {
                         })()}
                       </span>
                     </div>
-                    {/* <div className="nk-tb-col tb-col-md">
-                  <span className="tb-status text-success">Active</span>
-                  </div> */}
+                    <div className="nk-tb-col tb-col-md">
+                      <span
+                        className={`tb-status ${(() => {
+                          if (value.status == 3) {
+                            return "text-danger";
+                          } else if (value.status == 1) {
+                            return "text-success";
+                          } else {
+                            return "text-warning";
+                          }
+                        })()}`}
+                      >
+                        {(() => {
+                          if (value.status == 3) {
+                            return "Reject";
+                          } else if (value.status == 1) {
+                            return "Accept";
+                          } else {
+                            return "Pending";
+                          }
+                        })()}
+                      </span>
+                    </div>
                     <div className="nk-tb-col nk-tb-col-tools">
-                      <ul className="nk-tb-actions gx-1">
+                      {/* <ul className="nk-tb-actions gx-1">
                         <li className="nk-tb-action-hidden">
                           <a href="#" className="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Send Email">
                             <em className="icon ni ni-mail-fill"></em>
@@ -421,6 +555,18 @@ export default function ActionCalonAnggota({ token, formid }) {
                             </a>
                             <div className="dropdown-menu dropdown-menu-end">
                               <ul className="link-list-opt no-bdr">
+                                <li>
+                                  <a href="#">
+                                    <em className="icon ni ni-mail"></em>
+                                    <span>Accept</span>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    <em className="icon ni ni-na"></em>
+                                    <span>Reject</span>
+                                  </a>
+                                </li>
                                 <li>
                                   <a href="html/ecommerce/customer-details.html">
                                     <em className="icon ni ni-eye"></em>
@@ -456,7 +602,7 @@ export default function ActionCalonAnggota({ token, formid }) {
                             </div>
                           </div>
                         </li>
-                      </ul>
+                      </ul> */}
                     </div>
                   </div>
                 ))
