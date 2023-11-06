@@ -131,8 +131,8 @@ export default function ActionPage({ token, roleid }) {
                     UKM
                   </label>
                   <div className="form-control-wrap">
-                    <input type="text" value={ukm} className="form-control" id="full-name" required readOnly />
-                    <input name="organization_id" type="number" value={ukm_id} className="form-control" id="full-name" hidden />
+                    <input type="text" defaultValue={ukm} className="form-control" id="full-name" required readOnly />
+                    <input name="organization_id" type="number" defaultValue={ukm_id} className="form-control" id="full-name" hidden />
                   </div>
                 </div>
                 <div className="form-group">

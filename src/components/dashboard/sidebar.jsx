@@ -51,39 +51,40 @@ function Sidebar({ role }) {
                   <span className="nk-menu-text">Sales</span>
                 </a>
               </li>
-              {/* <!-- .nk-menu-item --> */}
-              <li className="nk-menu-item">
-                <a href="html/index-analytics.html" className="nk-menu-link">
-                  <span className="nk-menu-icon">
-                    <em className="icon ni ni-growth-fill"></em>
-                  </span>
-                  <span className="nk-menu-text">Analytics</span>
-                </a>
-              </li>
-              {/* <!-- .nk-menu-item --> */}
+
               {/* <!-- .nk-menu-heading --> */}
               {role == 2 && (
-                <li className={`nk-menu-item has-sub ${pathname === "/dashboard/formulir" ? "active" : ""}`}>
-                  <a href="#" className="nk-menu-link nk-menu-toggle">
-                    <span className="nk-menu-icon">
-                      <em className="icon ni ni-users-fill"></em>
-                    </span>
-                    <span className="nk-menu-text">Perekrutan ukm</span>
-                  </a>
-                  <ul className="nk-menu-sub">
-                    <li className="nk-menu-item">
-                      <a href="html/project-card.html" className="nk-menu-link">
-                        <span className="nk-menu-text">Rekrut anggota</span>
-                      </a>
-                    </li>
-                    <li className="nk-menu-item">
-                      <Link href="/dashboard/formulir" className="nk-menu-link">
-                        <span className="nk-menu-text">Formulir & Calon anggota</span>
-                      </Link>
-                    </li>
-                  </ul>
-                  {/* <!-- .nk-menu-sub --> */}
-                </li>
+                <>
+                  <li className="nk-menu-item">
+                    <Link href="/dashboard/jadwal-piket" className="nk-menu-link">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-table-view-fill"></em>
+                      </span>
+                      <span className="nk-menu-text">Jadwal Piket</span>
+                    </Link>
+                  </li>
+                  <li className={`nk-menu-item has-sub ${pathname === "/dashboard/formulir" ? "active" : ""}`}>
+                    <a href="#" className="nk-menu-link nk-menu-toggle">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-users-fill"></em>
+                      </span>
+                      <span className="nk-menu-text">Perekrutan ukm</span>
+                    </a>
+                    <ul className="nk-menu-sub">
+                      <li className="nk-menu-item">
+                        <a href="html/project-card.html" className="nk-menu-link">
+                          <span className="nk-menu-text">Rekrut anggota</span>
+                        </a>
+                      </li>
+                      <li className="nk-menu-item">
+                        <Link href="/dashboard/formulir" className="nk-menu-link">
+                          <span className="nk-menu-text">Formulir & Calon anggota</span>
+                        </Link>
+                      </li>
+                    </ul>
+                    {/* <!-- .nk-menu-sub --> */}
+                  </li>
+                </>
               )}
             </ul>
             {/* <!-- .nk-menu --> */}
