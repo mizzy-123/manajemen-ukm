@@ -1,8 +1,10 @@
 "use client";
 import GetMyOrganization from "@/api/getMyOrganization";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import useSWR from "swr";
-export default function ActionTablePiket({ token, roleid }) {
+export default function ActionTablePiket({ token, roleid, setIdUkm, setIdUserPiket, setNameUserPiket }) {
   const fetcher = (...args) =>
     fetch(...args, {
       method: "GET",
@@ -39,6 +41,7 @@ export default function ActionTablePiket({ token, roleid }) {
     e.preventDefault();
     setOrganizationId(id);
     setNamaOrganisasi(name);
+    setIdUkm(id);
     console.log("id", id);
   };
   const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_BASE_URL}/jadwal-piket?organization_id=${organizationId}`, fetcher, {
@@ -174,10 +177,72 @@ export default function ActionTablePiket({ token, roleid }) {
                         <th scope="row">{x + 1}</th>
                         <td>
                           {data.user.name}{" "}
-                          <a href="#" className="text-warning" data-bs-toggle="modal" data-bs-target="#editPiket">
+                          <a
+                            href="#"
+                            className="text-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editPiket"
+                            onClick={() => {
+                              setIdUserPiket(data.id);
+                              setNameUserPiket(data.user.name);
+                            }}
+                          >
                             edit
                           </a>{" "}
-                          <a href="#" className="text-danger">
+                          <a
+                            href="#"
+                            className="text-danger"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              Swal.fire({
+                                title: "Are you sure?",
+                                text: "You won't be able to revert this!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonText: "Yes, delete it!",
+                              }).then(async function (result) {
+                                if (result.value) {
+                                  // Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                                  let timerInterval;
+
+                                  // Tampilkan SweetAlert dengan pesan "Loading"
+                                  Swal.fire({
+                                    title: "Loading...",
+                                    html: "Please wait.",
+                                    timerProgressBar: true,
+                                    didOpen: () => {
+                                      Swal.showLoading();
+                                    },
+                                    willClose: () => {
+                                      clearInterval(timerInterval);
+                                    },
+                                    showConfirmButton: false, // Sembunyikan tombol "OK"
+                                  });
+
+                                  try {
+                                    const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/delete-petugas-piket/${data.id}`, {
+                                      headers: {
+                                        Accept: "application/json",
+                                        Authorization: `Bearer ${token.value}`,
+                                      },
+                                    });
+
+                                    if (response.status == 200) {
+                                      Swal.close();
+                                      Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                                    }
+                                  } catch (error) {
+                                    Swal.close();
+                                    Swal.fire({
+                                      icon: "error",
+                                      title: "Error",
+                                      text: error.response.data.message,
+                                    });
+                                  }
+                                }
+                              });
+                            }}
+                          >
                             delete
                           </a>
                         </td>

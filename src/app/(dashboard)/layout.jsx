@@ -25,6 +25,7 @@ export default function LoginLayout({ children }) {
         <Script src={`${process.env.NEXT_PUBLIC_APP_URL}/assets/js/bundle.js?ver=3.0.0`}></Script>
         <Script src={`${process.env.NEXT_PUBLIC_APP_URL}/assets/js/scripts.js?ver=3.0.0`}></Script>
         <Script src={`${process.env.NEXT_PUBLIC_APP_URL}/assets/js/charts/chart-ecommerce.js?ver=3.0.0`}></Script>
+        <Script src={`${process.env.NEXT_PUBLIC_APP_URL}/assets/js/example-sweetalert.js?ver=3.0.0`}></Script>
       </body>
     </html>
   );
