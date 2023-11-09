@@ -29,12 +29,12 @@ export default function ActionLogin() {
         // setTimeout(() => {
         //   redirect("/dashboard");
         // }, 3000);
-        router.push("/dashboard");
-        // setTimeout(() => {
-        //   location.reload(true);
-        // }, 3000);
         // window.location.href = `${process.env.NEXT_PUBLIC_APP_URL}/dashboard`;
       }
+      router.prefetch("/dashboard");
+      setTimeout(() => {
+        location.reload(true);
+      }, 3000);
     } catch (error) {
       console.log(error);
       setAlertMessage(error.response.data.message);
