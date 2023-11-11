@@ -34,14 +34,16 @@ function Sidebar({ role }) {
                 <h6 className="overline-title text-primary-alt">Dashboards</h6>
               </li>
               {/* <!-- .nk-menu-item --> */}
-              <li className="nk-menu-item">
-                <a href="html/index.html" className="nk-menu-link">
-                  <span className="nk-menu-icon">
-                    <em className="icon ni ni-cart-fill"></em>
-                  </span>
-                  <span className="nk-menu-text">Default</span>
-                </a>
-              </li>
+              {role == 1 && (
+                <li className="nk-menu-item">
+                  <a href="/dashboard/user-manage" className="nk-menu-link">
+                    <span className="nk-menu-icon">
+                      <em className="icon ni ni-users-fill"></em>
+                    </span>
+                    <span className="nk-menu-text">User Manage</span>
+                  </a>
+                </li>
+              )}
               {/* <!-- .nk-menu-item --> */}
               <li className="nk-menu-item">
                 <a href="html/index-sales.html" className="nk-menu-link">
