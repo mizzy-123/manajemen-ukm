@@ -32,7 +32,6 @@ export default function ActionTablePiket({ token, roleid, setIdUkm, setIdUserPik
       // setFormulir(data.data);
       setOrganization(dataOrganization.data);
       setLoading(false);
-      console.log("dataOrganization", dataOrganization);
     }
     fetchData();
   }, [token]);
@@ -42,7 +41,6 @@ export default function ActionTablePiket({ token, roleid, setIdUkm, setIdUserPik
     setOrganizationId(id);
     setNamaOrganisasi(name);
     setIdUkm(id);
-    console.log("id", id);
   };
   const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_BASE_URL}/jadwal-piket?organization_id=${organizationId}`, fetcher, {
     refreshInterval: 1000,
@@ -53,11 +51,9 @@ export default function ActionTablePiket({ token, roleid, setIdUkm, setIdUserPik
       <div className="nk-block nk-block-lg">
         <div className="nk-block-head nk-block-head">
           <div className="nk-block-head-content">
-            <h4 className="nk-block-title">Table Striped Rows</h4>
+            <h4 className="nk-block-title">Jadwal piket</h4>
             <div className="nk-block-des">
-              <p>
-                Use <code className="code-class">.table-stripped</code> class in <code className="code-tag">&lt;table&gt;</code> tag to make zebra stripping on table row.
-              </p>
+              <p>{/* Use <code className="code-class">.table-stripped</code> class in <code className="code-tag">&lt;table&gt;</code> tag to make zebra stripping on table row. */}</p>
             </div>
             <div className="d-flex justify-content-between">
               <div className="drodown">

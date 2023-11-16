@@ -20,26 +20,25 @@ export default function Login() {
                   </div>
                   <div className="nk-block nk-block-middle nk-auth-body">
                     <div className="brand-logo pb-5">
-                      <a href="html/index.html" className="logo-link">
-                        <img className="logo-light logo-img logo-img-lg" src="./images/logo.png" srcSet="./images/logo2x.png 2x" alt="logo" />
-                        <img className="logo-dark logo-img logo-img-lg" src="./images/logo-dark.png" srcSet="./images/logo-dark2x.png 2x" alt="logo-dark" />
+                      <a href="/login" className="logo-link">
+                        <img src="./images/logo.png" alt="logo" />
+                        {/* <img className="logo-light logo-img logo-img-lg" src="./images/logo.png" srcSet="./images/logo2x.png 2x" alt="logo" /> */}
+                        {/* <img className="logo-dark logo-img logo-img-lg" src="./images/logo-dark.png" srcSet="./images/logo-dark2x.png 2x" alt="logo-dark" /> */}
                       </a>
                     </div>
                     <div className="nk-block-head">
                       <div className="nk-block-head-content">
-                        <h5 className="nk-block-title">Sign-In</h5>
+                        <h5 className="nk-block-title">Log In</h5>
                         <div className="nk-block-des">
-                          <p>ganti ini</p>
+                          <p>Dashboard manajemen ukm</p>
                         </div>
                       </div>
                     </div>
                     {/* <!-- .nk-block-head --> */}
                     <ActionLogin />
                     {/* <!-- form --> */}
-                    <div className="form-note-s2 pt-4">
-                      New on our platform? <a href="html/pages/auths/auth-register.html">Create an account</a>
-                    </div>
-                    <div className="text-center pt-4 pb-3">
+                    <div className="form-note-s2 pt-4">{/* New on our platform? <a href="html/pages/auths/auth-register.html">Create an account</a> */}</div>
+                    {/* <div className="text-center pt-4 pb-3">
                       <h6 className="overline-title overline-title-sap">
                         <span>OR</span>
                       </h6>
@@ -60,7 +59,7 @@ export default function Login() {
                       <span className="fw-500">
                         I dont have an account? <a href="#">Try 15 days free</a>
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 {/* <!-- .nk-split-content --> */}
@@ -70,16 +69,16 @@ export default function Login() {
                       <div className="slider-item">
                         <div className="nk-feature nk-feature-center">
                           <div className="nk-feature-img">
-                            <img className="round" src="./images/slides/promo-a.png" srcSet="./images/slides/promo-a2x.png 2x" alt="" />
+                            <img className="round" src="./images/logo.png" srcSet="./images/logo.png" alt="" />
                           </div>
                           <div className="nk-feature-content py-4 p-sm-5">
-                            <h4>Dashlite</h4>
-                            <p>You can start to create your products easily with its user-friendly design & most completed responsive layout.</p>
+                            <h4>Unit Ease</h4>
+                            <p>You can start to create, read, update, delete and manage your organizations easily with its user-friendly design & most completed responsive layout.</p>
                           </div>
                         </div>
                       </div>
-                      {/* <!-- .slider-item --> */}
-                      <div className="slider-item">
+
+                      {/* <div className="slider-item">
                         <div className="nk-feature nk-feature-center">
                           <div className="nk-feature-img">
                             <img className="round" src="./images/slides/promo-b.png" srcSet="./images/slides/promo-b2x.png 2x" alt="" />
@@ -90,7 +89,7 @@ export default function Login() {
                           </div>
                         </div>
                       </div>
-                      {/* <!-- .slider-item --> */}
+                      
                       <div className="slider-item">
                         <div className="nk-feature nk-feature-center">
                           <div className="nk-feature-img">
@@ -101,8 +100,7 @@ export default function Login() {
                             <p>You can start to create your products easily with its user-friendly design & most completed responsive layout.</p>
                           </div>
                         </div>
-                      </div>
-                      {/* <!-- .slider-item --> */}
+                      </div> */}
                     </div>
                     {/* <!-- .slider-init --> */}
                     <div className="slider-dots"></div>

@@ -90,7 +90,7 @@ export default function ActionTable({ token, roleid, ukm, idukm }) {
               </th>
               <th className="tb-tnx-info">
                 <span className="tb-tnx-desc d-none d-sm-inline-block">
-                  <span>Bill For</span>
+                  <span>Nama</span>
                 </span>
                 <span className="tb-tnx-date d-md-inline-block d-none">
                   <span className="d-md-none">Date</span>

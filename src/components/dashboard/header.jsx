@@ -55,9 +55,10 @@ export default function Header({ token, roleid }) {
             </a>
           </div>
           <div className="nk-header-brand d-xl-none">
-            <a href="html/index.html" className="logo-link">
-              <img className="logo-light logo-img" src={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo.png`} srcSet={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo2x.png 2x`} alt="logo" />
-              <img className="logo-dark logo-img" src={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo-dark.png`} srcSet={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo-dark2x.png 2x`} alt="logo-dark" />
+            <a href="/dashboard" className="logo-link">
+              <img width={80} src={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo.png`} alt="logo" />
+              {/* <img className="logo-light logo-img" src={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo.png`} srcSet={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo2x.png 2x`} alt="logo" /> */}
+              {/* <img className="logo-dark logo-img" src={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo-dark.png`} srcSet={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo-dark2x.png 2x`} alt="logo-dark" /> */}
             </a>
           </div>
           {/* <!-- .nk-header-brand --> */}

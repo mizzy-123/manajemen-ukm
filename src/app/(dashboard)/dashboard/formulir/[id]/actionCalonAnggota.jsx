@@ -5,9 +5,11 @@ import PostSelectedAngkatCalon from "@/api/postSelectedAngkatCalon";
 import PostSelectedRejectCalon from "@/api/postSelectedRejectCalon";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
+import { AppContext } from "./actionPage";
 
 export default function ActionCalonAnggota({ token, formid }) {
+  const { setDataMahasiswa } = useContext(AppContext);
   const [isClient, setClient] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const searchParams = useSearchParams();
@@ -180,10 +182,8 @@ export default function ActionCalonAnggota({ token, formid }) {
           <div className="nk-block-head nk-block-head-sm">
             <div className="nk-block-between">
               <div className="nk-block-head-content">
-                <h3 className="nk-block-title page-title">User Lists</h3>
-                <div className="nk-block-des text-soft">
-                  <p>You have total 2,595 users.</p>
-                </div>
+                <h3 className="nk-block-title page-title">Data calon angota</h3>
+                <div className="nk-block-des text-soft">{/* <p>You have total 2,595 users.</p> */}</div>
               </div>
               {/* <div className="nk-block-head-content">
                 <div className="toggle-wrap nk-block-tools-toggle">
@@ -474,7 +474,20 @@ export default function ActionCalonAnggota({ token, formid }) {
                       </div>
                     </div>
                     <div className="nk-tb-col">
-                      <a href="#">
+                      <a
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDetail"
+                        onClick={(e) => {
+                          setDataMahasiswa({
+                            name: value.name,
+                            email: value.email,
+                            no_telepon: value.no_telepon,
+                            nim: value.nim,
+                            kelamin: value.kelamin,
+                          });
+                        }}
+                      >
                         <div className="user-card">
                           <div className="user-info">
                             <span className="tb-lead">
