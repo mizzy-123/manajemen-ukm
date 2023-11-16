@@ -28,6 +28,8 @@ export default function ActionCalonAnggota({ token, formid }) {
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     setIsLoading(true);
     async function fetchData() {
@@ -44,7 +46,7 @@ export default function ActionCalonAnggota({ token, formid }) {
     fetchData();
     setClient(true);
     console.log("passing", token, formid);
-  }, [search, page, token, formid, status]);
+  }, [search, page, token, formid, status, refresh]);
 
   const paginateClick = (e, url) => {
     e.preventDefault();
@@ -119,37 +121,41 @@ export default function ActionCalonAnggota({ token, formid }) {
 
   const AcceptClick = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const response = await PostSelectedAngkatCalon({ token: token, selectedData: selectedItems });
       setMessage(response.data.message);
       setAlert(false);
       setAlertSuccess(true);
-      setIsLoading(false);
-      router.refresh();
+      setRefresh(!refresh);
+      setSelectAll(false);
+      setSelectedItems([]);
+      // setIsLoading(false);
     } catch (error) {
       setMessage(error.response.data.message);
       setAlert(true);
       setAlertSuccess(false);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
   const RejectClick = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const response = await PostSelectedRejectCalon({ selectedData: selectedItems, token: token });
       setMessage(response.data.message);
       setAlert(false);
       setAlertSuccess(true);
-      setIsLoading(false);
-      router.refresh();
+      setRefresh(!refresh);
+      setSelectAll(false);
+      setSelectedItems([]);
+      // setIsLoading(false);
     } catch (error) {
       setMessage(error.response.data.message);
       setAlert(true);
       setAlertSuccess(false);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 

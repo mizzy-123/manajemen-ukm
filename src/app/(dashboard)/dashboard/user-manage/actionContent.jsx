@@ -6,6 +6,8 @@ import GetMyOrganization from "@/api/getMyOrganization";
 import GetAllOrganization from "@/api/getAllOrganization";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useSWR from "swr";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 export default function ActionContent() {
   const { token, roleid, idUkm, setIdUkm, setNamaUkm, setNamaMahasiswa, setIdMahahasiswa, setDataMahasiswa } = useContext(AppContext);
@@ -472,7 +474,63 @@ export default function ActionContent() {
                                             </li>
                                             <li className="divider"></li>
                                             <li>
-                                              <a href="#">
+                                              <a
+                                                href="#"
+                                                onClick={(e) => {
+                                                  e.preventDefault();
+                                                  Swal.fire({
+                                                    title: "Are you sure?",
+                                                    text: "You wanna reset this password?",
+                                                    icon: "warning",
+                                                    showCancelButton: true,
+                                                    confirmButtonText: "Yes, reset it!",
+                                                  }).then(async function (result) {
+                                                    if (result.value) {
+                                                      // Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                                                      let timerInterval;
+
+                                                      // Tampilkan SweetAlert dengan pesan "Loading"
+                                                      Swal.fire({
+                                                        title: "Loading...",
+                                                        html: "Please wait.",
+                                                        timerProgressBar: true,
+                                                        didOpen: () => {
+                                                          Swal.showLoading();
+                                                        },
+                                                        willClose: () => {
+                                                          clearInterval(timerInterval);
+                                                        },
+                                                        showConfirmButton: false, // Sembunyikan tombol "OK"
+                                                      });
+
+                                                      try {
+                                                        const response = await axios.post(
+                                                          `${process.env.NEXT_PUBLIC_API_BASE_URL}/password-reset/${value.id}`,
+                                                          {},
+                                                          {
+                                                            headers: {
+                                                              Accept: "application/json",
+                                                              Authorization: `Bearer ${token.value}`,
+                                                            },
+                                                          }
+                                                        );
+
+                                                        if (response.status == 200) {
+                                                          Swal.close();
+                                                          Swal.fire("Reseted!", "This password account has been reseted.", "success");
+                                                        }
+                                                      } catch (error) {
+                                                        Swal.close();
+                                                        Swal.fire({
+                                                          icon: "error",
+                                                          title: "Error",
+                                                          text: error.response.data.message,
+                                                        });
+                                                      }
+                                                    }
+                                                  });
+                                                }}
+                                              >
                                                 <em className="icon ni ni-shield-star"></em>
                                                 <span>Reset Pass</span>
                                               </a>

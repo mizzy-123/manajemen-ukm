@@ -5,10 +5,10 @@ export default function Footer() {
         <div className="nk-footer-wrap">
           <div className="nk-footer-copyright">
             {" "}
-            &copy; 2022 DashLite. Template by{" "}
-            <a href="https://softnio.com" target="_blank">
+            &copy; 2023 Manajemen ukm{" "}
+            {/* <a href="https://softnio.com" target="_blank">
               Softnio
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

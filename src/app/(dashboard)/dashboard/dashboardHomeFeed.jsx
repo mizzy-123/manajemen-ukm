@@ -13,7 +13,6 @@ export default async function DashboardHomeFeed() {
               <div className="nk-block-between">
                 <div className="nk-block-head-content">
                   <h3 className="nk-block-title page-title">Selamat datang {user.data.data.name}</h3>
-                  <Link href="/dashboard/lihat-calon-anggota">pindah</Link>
                 </div>
                 {/* <!-- .nk-block-head-content --> */}
 

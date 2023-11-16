@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -10,9 +11,10 @@ function Sidebar({ role }) {
       <div className="nk-sidebar-element nk-sidebar-head">
         <div className="nk-sidebar-brand">
           <a href="html/index.html" className="logo-link nk-sidebar-logo">
-            <img className="logo-light logo-img" src={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo.png`} srcSet={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo2x.png 2x`} alt="logo" />
+            <img width={180} src={`${process.env.NEXT_PUBLIC_APP_URL}/images/polines.png`} alt="logo" />
+            {/* <img className="logo-light logo-img" src={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo.png`} srcSet={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo2x.png 2x`} alt="logo" />
             <img className="logo-dark logo-img" src={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo-dark.png`} srcSet={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo-dark2x.png 2x`} alt="logo-dark" />
-            <img className="logo-small logo-img logo-img-small" src={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo-small.png`} srcSet={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo-small2x.png 2x`} alt="logo-small" />
+            <img className="logo-small logo-img logo-img-small" src={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo-small.png`} srcSet={`${process.env.NEXT_PUBLIC_APP_URL}/images/logo-small2x.png 2x`} alt="logo-small" /> */}
           </a>
         </div>
         <div className="nk-menu-trigger me-n2">
@@ -35,24 +37,34 @@ function Sidebar({ role }) {
               </li>
               {/* <!-- .nk-menu-item --> */}
               {role == 1 && (
-                <li className="nk-menu-item">
-                  <a href="/dashboard/user-manage" className="nk-menu-link">
-                    <span className="nk-menu-icon">
-                      <em className="icon ni ni-users-fill"></em>
-                    </span>
-                    <span className="nk-menu-text">User Manage</span>
-                  </a>
-                </li>
+                <>
+                  <li className="nk-menu-item">
+                    <a href="/dashboard/user-manage" className="nk-menu-link">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-users-fill"></em>
+                      </span>
+                      <span className="nk-menu-text">User Manage</span>
+                    </a>
+                  </li>
+                  <li className="nk-menu-item">
+                    <a href="/dashboard/organization" className="nk-menu-link">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-property-add"></em>
+                      </span>
+                      <span className="nk-menu-text">Tambah ukm</span>
+                    </a>
+                  </li>
+                </>
               )}
               {/* <!-- .nk-menu-item --> */}
-              <li className="nk-menu-item">
+              {/* <li className="nk-menu-item">
                 <a href="html/index-sales.html" className="nk-menu-link">
                   <span className="nk-menu-icon">
                     <em className="icon ni ni-activity-round-fill"></em>
                   </span>
                   <span className="nk-menu-text">Sales</span>
                 </a>
-              </li>
+              </li> */}
 
               {/* <!-- .nk-menu-heading --> */}
               {role == 2 && (
@@ -60,19 +72,19 @@ function Sidebar({ role }) {
                   <li className="nk-menu-item">
                     <a href="/dashboard/jadwal-piket" className="nk-menu-link">
                       <span className="nk-menu-icon">
-                        <em className="icon ni ni-table-view-fill"></em>
+                        <em className="icon ni ni-calendar-alt"></em>
                       </span>
                       <span className="nk-menu-text">Jadwal Piket</span>
                     </a>
                   </li>
-                  <li className={`nk-menu-item has-sub ${pathname === "/dashboard/formulir" ? "active" : ""}`}>
-                    <a href="#" className="nk-menu-link nk-menu-toggle">
+                  <li className={`nk-menu-item ${pathname === "/dashboard/formulir" ? "active" : ""}`}>
+                    <a href="/dashboard/formulir" className="nk-menu-link">
                       <span className="nk-menu-icon">
                         <em className="icon ni ni-users-fill"></em>
                       </span>
                       <span className="nk-menu-text">Perekrutan ukm</span>
                     </a>
-                    <ul className="nk-menu-sub">
+                    {/* <ul className="nk-menu-sub">
                       <li className="nk-menu-item">
                         <a href="html/project-card.html" className="nk-menu-link">
                           <span className="nk-menu-text">Rekrut anggota</span>
@@ -83,8 +95,24 @@ function Sidebar({ role }) {
                           <span className="nk-menu-text">Formulir & Calon anggota</span>
                         </a>
                       </li>
-                    </ul>
+                    </ul> */}
                     {/* <!-- .nk-menu-sub --> */}
+                  </li>
+                  <li className="nk-menu-item">
+                    <a href="/dashboard/jadwal-piket" className="nk-menu-link">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-tile-thumb-fill"></em>
+                      </span>
+                      <span className="nk-menu-text">Proker</span>
+                    </a>
+                  </li>
+                  <li className="nk-menu-item">
+                    <a href="/dashboard/jadwal-piket" className="nk-menu-link">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-table-view-fill"></em>
+                      </span>
+                      <span className="nk-menu-text">Data presensi</span>
+                    </a>
                   </li>
                 </>
               )}

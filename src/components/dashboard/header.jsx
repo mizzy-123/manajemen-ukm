@@ -108,84 +108,121 @@ export default function Header({ token, roleid }) {
                 )}
               </li>
 
-              {loading ? (
-                <li className="preview-item">
-                  <div className="spinner-grow spinner-grow-sm" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  <div className="spinner-grow spinner-grow-sm" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  <div className="spinner-grow spinner-grow-sm" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                </li>
-              ) : (
-                <li className="dropdown user-dropdown">
-                  <a href="#" className="dropdown-toggle me-n1" data-bs-toggle="dropdown">
-                    <div className="user-toggle">
-                      <div className="user-avatar sm">
-                        <em className="icon ni ni-user-alt"></em>
-                      </div>
-                      <div className="user-info d-none d-xl-block">
-                        <div className="user-status user-status-unverified">Unverified</div>
-                        <div className="user-name dropdown-indicator">{user.name}</div>
-                      </div>
+              <li className="dropdown user-dropdown">
+                <a href="#" className="dropdown-toggle me-n1" data-bs-toggle="dropdown">
+                  <div className="user-toggle">
+                    <div className="user-avatar sm">
+                      <em className="icon ni ni-user-alt"></em>
                     </div>
-                  </a>
-                  <div className="dropdown-menu dropdown-menu-md dropdown-menu-end">
-                    <div className="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
-                      <div className="user-card">
-                        <div className="user-avatar">
-                          <span>AB</span>
-                        </div>
-                        <div className="user-info">
-                          <span className="lead-text">{user.name}</span>
-                          <span className="sub-text">{user.email}</span>
-                        </div>
+                    <div className="user-info d-none d-xl-block">
+                      {/* <div className="user-status user-status-unverified">Unverified</div> */}
+                      <div className="user-name dropdown-indicator">
+                        {loading ? (
+                          <ul className="preview-list g-1">
+                            <li className="preview-item">
+                              <div className="spinner-border spinner-border-sm" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                              </div>
+                            </li>
+                            <li className="preview-item">
+                              <div className="spinner-grow spinner-grow-sm" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                              </div>
+                            </li>
+                          </ul>
+                        ) : (
+                          user.name
+                        )}
                       </div>
                     </div>
-                    <div className="dropdown-inner">
-                      <ul className="link-list">
-                        <li>
-                          <a href="html/user-profile-regular.html">
-                            <em className="icon ni ni-user-alt"></em>
-                            <span>View Profile</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="html/user-profile-setting.html">
-                            <em className="icon ni ni-setting-alt"></em>
-                            <span>Account Setting</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="html/user-profile-activity.html">
-                            <em className="icon ni ni-activity-alt"></em>
-                            <span>Login Activity</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dark-switch" href="#">
-                            <em className="icon ni ni-moon"></em>
-                            <span>Dark Mode</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="dropdown-inner">
-                      <ul className="link-list">
-                        <li>
-                          <a href="#" onClick={(e) => LogoutClick(e)}>
-                            <em className="icon ni ni-signout"></em>
-                            <span>Sign out</span>
-                          </a>
-                        </li>
-                      </ul>
+                  </div>
+                </a>
+                <div className="dropdown-menu dropdown-menu-md dropdown-menu-end">
+                  <div className="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+                    <div className="user-card">
+                      {/* <div className="user-avatar">
+                        <span>AB</span>
+                      </div> */}
+                      <div className="user-info">
+                        <span className="lead-text">
+                          {loading ? (
+                            <ul className="preview-list g-1">
+                              <li className="preview-item">
+                                <div className="spinner-border spinner-border-sm" role="status">
+                                  <span className="visually-hidden">Loading...</span>
+                                </div>
+                              </li>
+                              <li className="preview-item">
+                                <div className="spinner-grow spinner-grow-sm" role="status">
+                                  <span className="visually-hidden">Loading...</span>
+                                </div>
+                              </li>
+                            </ul>
+                          ) : (
+                            user.name
+                          )}
+                        </span>
+                        <span className="sub-text">
+                          {loading ? (
+                            <ul className="preview-list g-1">
+                              <li className="preview-item">
+                                <div className="spinner-border spinner-border-sm" role="status">
+                                  <span className="visually-hidden">Loading...</span>
+                                </div>
+                              </li>
+                              <li className="preview-item">
+                                <div className="spinner-grow spinner-grow-sm" role="status">
+                                  <span className="visually-hidden">Loading...</span>
+                                </div>
+                              </li>
+                            </ul>
+                          ) : (
+                            user.email
+                          )}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </li>
-              )}
+                  <div className="dropdown-inner">
+                    <ul className="link-list">
+                      {/* <li>
+                        <a href="html/user-profile-regular.html">
+                          <em className="icon ni ni-user-alt"></em>
+                          <span>View Profile</span>
+                        </a>
+                      </li> */}
+                      <li>
+                        <a href="html/user-profile-setting.html">
+                          <em className="icon ni ni-setting-alt"></em>
+                          <span>Account Setting</span>
+                        </a>
+                      </li>
+                      {/* <li>
+                        <a href="html/user-profile-activity.html">
+                          <em className="icon ni ni-activity-alt"></em>
+                          <span>Login Activity</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a className="dark-switch" href="#">
+                          <em className="icon ni ni-moon"></em>
+                          <span>Dark Mode</span>
+                        </a>
+                      </li> */}
+                    </ul>
+                  </div>
+                  <div className="dropdown-inner">
+                    <ul className="link-list">
+                      <li>
+                        <a href="#" onClick={(e) => LogoutClick(e)}>
+                          <em className="icon ni ni-signout"></em>
+                          <span>Sign out</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
