@@ -3,9 +3,10 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "./actionPage";
 import GetMyOrganization from "@/api/getMyOrganization";
+import useSWR from "swr";
 
 export default function ActionContent() {
-  const { token, roleid } = useContext(AppContext);
+  const { token, roleid, setDataOrganisasi } = useContext(AppContext);
   const [organizaton, setOrganization] = useState([]);
   const [organizationId, setOrganizationId] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -34,8 +35,25 @@ export default function ActionContent() {
     e.preventDefault();
     setOrganizationId(id);
     setNamaOrganisasi(name);
-    setIdUkm(id);
+    // setIdUkm(id);
+    setDataOrganisasi({
+      id: id,
+      name: name,
+    });
   };
+
+  const allRapatProker = (...args) =>
+    fetch(...args, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+        Accept: "application/json",
+      },
+    }).then((res) => res.json());
+
+  const { data: dataProker, isLoading: loadingProker } = useSWR(`${process.env.NEXT_PUBLIC_API_BASE_URL}/all-rapat-proker?organization_id=${organizationId}`, allRapatProker, {
+    refreshInterval: 1000,
+  });
 
   return (
     <div className="nk-content">
@@ -89,7 +107,7 @@ export default function ActionContent() {
                       </div>
                     </div>
                     <div className="nk-block-head-content">
-                      <li className="nk-block-tools-opt">
+                      <li className="nk-block-tools-opt" data-bs-toggle="modal" data-bs-target="#modalProker">
                         <a href="#" className="btn btn-icon btn-primary d-md-none">
                           <em className="icon ni ni-plus"></em>
                         </a>
@@ -121,54 +139,124 @@ export default function ActionContent() {
                     </tr>
                   </thead>
                   <tbody className="tb-odr-body">
-                    <tr className="tb-odr-item">
-                      <td className="tb-odr-info">
-                        <span className="tb-odr-id">
-                          <a href="#">1</a>
-                        </span>
-                        <span className="tb-odr-date">Rapat anggota</span>
-                      </td>
-                      <td className="tb-odr-info">
-                        <span className="tb-odr-id">Jl. pegangsaan timur no 56</span>
-                      </td>
-
-                      <td className="tb-odr-amount">
-                        <span className="tb-odr-total">
-                          <span className="amount">23 Jan 2019, 10:45pm</span>
-                        </span>
-                      </td>
-                      <td className="tb-odr-action">
-                        <div className="tb-odr-btns d-none d-md-inline">
-                          <a href="#" className="btn btn-sm btn-primary">
-                            View
-                          </a>
-                        </div>
-                        <div className="dropdown">
-                          <a className="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown" data-offset="-8,0">
-                            <em className="icon ni ni-more-h"></em>
-                          </a>
-                          <div className="dropdown-menu dropdown-menu-end dropdown-menu-xs">
-                            <ul className="link-list-plain">
-                              <li>
-                                <a href="#" className="text-primary">
-                                  Edit
-                                </a>
+                    {loadingProker ? (
+                      <tr className="tb-odr-item">
+                        <td className="tb-odr-info">
+                          <span className="tb-odr-id">
+                            <a href="#">
+                              <div className="spinner-border spinner-border-sm" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                              </div>
+                            </a>
+                          </span>
+                          <span className="tb-odr-date">
+                            <div className="spinner-border spinner-border-sm" role="status">
+                              <span className="visually-hidden">Loading...</span>
+                            </div>
+                          </span>
+                        </td>
+                        <td className="tb-odr-info">
+                          <span className="tb-odr-id">
+                            <ul className="preview-list g-1">
+                              <li className="preview-item">
+                                <div className="spinner-border spinner-border-sm" role="status">
+                                  <span className="visually-hidden">Loading...</span>
+                                </div>
                               </li>
-                              <li>
-                                <a href="#" className="text-primary">
-                                  View
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#" className="text-danger">
-                                  Remove
-                                </a>
+                              <li className="preview-item">
+                                <div className="spinner-grow spinner-grow-sm" role="status">
+                                  <span className="visually-hidden">Loading...</span>
+                                </div>
                               </li>
                             </ul>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
+                          </span>
+                        </td>
+
+                        <td className="tb-odr-amount">
+                          <span className="tb-odr-total">
+                            <span className="amount">
+                              <ul className="preview-list g-1">
+                                <li className="preview-item">
+                                  <div className="spinner-border spinner-border-sm" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                  </div>
+                                </li>
+                                <li className="preview-item">
+                                  <div className="spinner-grow spinner-grow-sm" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                  </div>
+                                </li>
+                              </ul>
+                            </span>
+                          </span>
+                        </td>
+                        <td className="tb-odr-action">
+                          <ul className="preview-list g-1">
+                            <li className="preview-item">
+                              <div className="spinner-border spinner-border-sm" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                              </div>
+                            </li>
+                            <li className="preview-item">
+                              <div className="spinner-grow spinner-grow-sm" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    ) : (
+                      dataProker.data.map((value, i) => (
+                        <tr className="tb-odr-item" key={i}>
+                          <td className="tb-odr-info">
+                            <span className="tb-odr-id">
+                              <a href="#">{i + 1}</a>
+                            </span>
+                            <span className="tb-odr-date">{value.name}</span>
+                          </td>
+                          <td className="tb-odr-info">
+                            <span className="tb-odr-id">{value.lokasi}</span>
+                          </td>
+
+                          <td className="tb-odr-amount">
+                            <span className="tb-odr-total">
+                              <span className="amount">{value.waktu}</span>
+                            </span>
+                          </td>
+                          <td className="tb-odr-action">
+                            <div className="tb-odr-btns d-none d-md-inline">
+                              <a href="#" className="btn btn-sm btn-primary">
+                                View
+                              </a>
+                            </div>
+                            <div className="dropdown">
+                              <a className="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown" data-offset="-8,0">
+                                <em className="icon ni ni-more-h"></em>
+                              </a>
+                              <div className="dropdown-menu dropdown-menu-end dropdown-menu-xs">
+                                <ul className="link-list-plain">
+                                  <li>
+                                    <a href="#" className="text-primary">
+                                      Edit
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#" className="text-primary">
+                                      View
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#" className="text-danger">
+                                      Remove
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>

@@ -103,9 +103,7 @@ export default function ActionModal() {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="form-label" htmlFor="full-name">
-                    Ingin ganti role ke?
-                  </label>
+                  <label className="form-label">Ingin ganti role ke?</label>
                   <div className="form-control-wrap">
                     <select className="form-select" aria-label="Default select example" name="role_id">
                       {loadingRole ? (
