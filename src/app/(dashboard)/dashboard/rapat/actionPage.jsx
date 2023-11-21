@@ -11,8 +11,15 @@ export default function ActionPage({ token, roleid }) {
     id: 0,
     name: "",
   });
+  const [dataProker, setDataProker] = useState({
+    id: 0,
+    name: "",
+    lokasi: "",
+    date: "",
+    time: "",
+  });
   return (
-    <AppContext.Provider value={{ token, roleid, dataOrganisasi, setDataOrganisasi }}>
+    <AppContext.Provider value={{ token, roleid, dataOrganisasi, setDataOrganisasi, dataProker, setDataProker }}>
       <ActionContent />
       <ActionModal />
     </AppContext.Provider>

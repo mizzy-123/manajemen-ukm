@@ -4,9 +4,10 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "./actionPage";
 import GetMyOrganization from "@/api/getMyOrganization";
 import useSWR from "swr";
+import { format } from "date-fns";
 
 export default function ActionContent() {
-  const { token, roleid, setDataOrganisasi } = useContext(AppContext);
+  const { token, roleid, setDataOrganisasi, setDataProker } = useContext(AppContext);
   const [organizaton, setOrganization] = useState([]);
   const [organizationId, setOrganizationId] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -220,15 +221,23 @@ export default function ActionContent() {
 
                           <td className="tb-odr-amount">
                             <span className="tb-odr-total">
-                              <span className="amount">{value.waktu}</span>
+                              <span className="amount">
+                                {(() => {
+                                  const parsedDate = new Date(value.waktu);
+
+                                  // Format tanggal sesuai dengan keinginan Anda
+                                  const formattedDate = format(parsedDate, "dd MMM yyyy, hh:mm a");
+                                  return formattedDate;
+                                })()}
+                              </span>
                             </span>
                           </td>
                           <td className="tb-odr-action">
-                            <div className="tb-odr-btns d-none d-md-inline">
+                            {/* <div className="tb-odr-btns d-none d-md-inline">
                               <a href="#" className="btn btn-sm btn-primary">
                                 View
                               </a>
-                            </div>
+                            </div> */}
                             <div className="dropdown">
                               <a className="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown" data-offset="-8,0">
                                 <em className="icon ni ni-more-h"></em>
@@ -236,15 +245,33 @@ export default function ActionContent() {
                               <div className="dropdown-menu dropdown-menu-end dropdown-menu-xs">
                                 <ul className="link-list-plain">
                                   <li>
-                                    <a href="#" className="text-primary">
+                                    <a
+                                      href="#"
+                                      className="text-primary"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#modalEdit"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        const parsedDate = new Date(value.waktu);
+                                        const formattedDate = format(parsedDate, "yyyy-MM-dd");
+                                        const formattedTime = format(parsedDate, "HH:mm:ss");
+                                        setDataProker({
+                                          id: value.id,
+                                          name: value.name,
+                                          lokasi: value.lokasi,
+                                          date: formattedDate,
+                                          time: formattedTime,
+                                        });
+                                      }}
+                                    >
                                       Edit
                                     </a>
                                   </li>
-                                  <li>
+                                  {/* <li>
                                     <a href="#" className="text-primary">
                                       View
                                     </a>
-                                  </li>
+                                  </li> */}
                                   <li>
                                     <a href="#" className="text-danger">
                                       Remove
