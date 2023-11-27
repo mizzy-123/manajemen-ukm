@@ -67,10 +67,12 @@ export default function ActionCalonAnggota({ token, formid }) {
       const urlApi = new URL(url);
       const paramsUrl = urlApi.searchParams;
       const page = paramsUrl.get("page");
-      const status = paramsUrl.get("status");
       const params = new URLSearchParams(searchParams);
+      if (paramsUrl.has("status")) {
+        const status = paramsUrl.get("status");
+        params.set("status", status);
+      }
       params.set("page", page);
-      params.set("status", status);
       router.push(pathname + "?" + params.toString());
       console.log(search);
     }

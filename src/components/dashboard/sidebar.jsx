@@ -39,20 +39,20 @@ function Sidebar({ role }) {
               {role == 1 && (
                 <>
                   <li className="nk-menu-item">
-                    <a href="/dashboard/user-manage" className="nk-menu-link">
+                    <Link href="/dashboard/user-manage" className="nk-menu-link">
                       <span className="nk-menu-icon">
                         <em className="icon ni ni-users-fill"></em>
                       </span>
                       <span className="nk-menu-text">User Manage</span>
-                    </a>
+                    </Link>
                   </li>
                   <li className="nk-menu-item">
-                    <a href="/dashboard/organization" className="nk-menu-link">
+                    <Link href="/dashboard/organization" className="nk-menu-link">
                       <span className="nk-menu-icon">
                         <em className="icon ni ni-property-add"></em>
                       </span>
                       <span className="nk-menu-text">Tambah ukm</span>
-                    </a>
+                    </Link>
                   </li>
                 </>
               )}
@@ -69,13 +69,13 @@ function Sidebar({ role }) {
               {/* <!-- .nk-menu-heading --> */}
               {role == 2 && (
                 <>
-                  <li className="nk-menu-item">
-                    <a href="/dashboard/jadwal-piket" className="nk-menu-link">
+                  <li className={`nk-menu-item ${pathname === "/dashboard/jadwal-piket" ? "active current-page" : ""}`}>
+                    <Link href="/dashboard/jadwal-piket" className="nk-menu-link">
                       <span className="nk-menu-icon">
                         <em className="icon ni ni-calendar-alt"></em>
                       </span>
                       <span className="nk-menu-text">Jadwal Piket</span>
-                    </a>
+                    </Link>
                   </li>
                   <li className={`nk-menu-item ${pathname === "/dashboard/formulir" ? "active" : ""}`}>
                     <a href="/dashboard/formulir" className="nk-menu-link">
@@ -98,7 +98,7 @@ function Sidebar({ role }) {
                     </ul> */}
                     {/* <!-- .nk-menu-sub --> */}
                   </li>
-                  <li className="nk-menu-item">
+                  <li className={`nk-menu-item ${pathname === "/dashboard/rapat" ? "active current-page" : ""}`}>
                     <a href="/dashboard/rapat" className="nk-menu-link">
                       <span className="nk-menu-icon">
                         <em className="icon ni ni-tile-thumb-fill"></em>
@@ -106,13 +106,41 @@ function Sidebar({ role }) {
                       <span className="nk-menu-text">Proker</span>
                     </a>
                   </li>
-                  <li className="nk-menu-item">
-                    <a href="/dashboard/data-presensi" className="nk-menu-link">
+                  <li className={`nk-menu-item ${pathname === "/dashboard/data-presensi" ? "active current-page" : ""}`}>
+                    <Link href="/dashboard/data-presensi" className="nk-menu-link">
                       <span className="nk-menu-icon">
                         <em className="icon ni ni-table-view-fill"></em>
                       </span>
                       <span className="nk-menu-text">Data presensi</span>
-                    </a>
+                    </Link>
+                  </li>
+                </>
+              )}
+              {role == 3 && (
+                <>
+                  <li className={`nk-menu-item ${pathname === "/dashboard/piket" ? "active current-page" : ""}`}>
+                    <Link href="/dashboard/piket" className="nk-menu-link">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-calendar-alt"></em>
+                      </span>
+                      <span className="nk-menu-text">Jadwal Piket</span>
+                    </Link>
+                  </li>
+                  <li className={`nk-menu-item ${pathname === "/dashboard/jadwal-rapat" ? "active current-page" : ""}`}>
+                    <Link href="/dashboard/jadwal-rapat" className="nk-menu-link">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-tile-thumb-fill"></em>
+                      </span>
+                      <span className="nk-menu-text">Proker</span>
+                    </Link>
+                  </li>
+                  <li className={`nk-menu-item ${pathname === "/dashboard/absen" ? "active current-page" : ""}`}>
+                    <Link href="/dashboard/absen" className="nk-menu-link">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-note-add-c"></em>
+                      </span>
+                      <span className="nk-menu-text">Absensi</span>
+                    </Link>
                   </li>
                 </>
               )}

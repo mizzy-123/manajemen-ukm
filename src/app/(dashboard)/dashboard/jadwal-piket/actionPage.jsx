@@ -9,6 +9,7 @@ import UpdateUserPiket from "@/api/updateUserPiket";
 
 export default function ActionPage({ token, roleid }) {
   const refSubmit = useRef(null);
+  const reftambah = useRef(null);
   const [isClient, setClient] = useState(false);
   const [idUkm, setIdUkm] = useState(null);
   const [idUserPiket, setIdUserPiket] = useState(0);
@@ -89,7 +90,7 @@ export default function ActionPage({ token, roleid }) {
                 )}
                 <div className="modal-header">
                   <h5 className="modal-title">Tambah petugas piket</h5>
-                  <a href="#" className="close" data-bs-dismiss="modal" aria-label="Close" ref={refSubmit}>
+                  <a href="#" className="close" data-bs-dismiss="modal" aria-label="Close" ref={reftambah}>
                     <em className="icon ni ni-cross"></em>
                   </a>
                 </div>
@@ -112,7 +113,7 @@ export default function ActionPage({ token, roleid }) {
                           setTimeout(() => {
                             setAlertSuccess(false);
                             setAlert(false);
-                            refSubmit.current.click();
+                            reftambah.current.click();
                           }, 2000);
                         }
                       } catch (error) {

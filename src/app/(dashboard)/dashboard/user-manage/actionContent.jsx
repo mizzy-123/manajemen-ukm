@@ -56,10 +56,10 @@ export default function ActionContent() {
       const urlApi = new URL(url);
       const paramsUrl = urlApi.searchParams;
       const page = paramsUrl.get("page");
-      const status = paramsUrl.get("status");
+      // const status = paramsUrl.get("status");
       const params = new URLSearchParams(searchParams);
       params.set("page", page);
-      params.set("status", status);
+      // params.set("status", status);
       router.push(pathname + "?" + params.toString());
     }
   };

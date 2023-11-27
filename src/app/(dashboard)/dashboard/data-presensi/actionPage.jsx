@@ -1,7 +1,9 @@
 "use client";
 
 import GetMyOrganization from "@/api/getMyOrganization";
+import { format } from "date-fns";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 export default function ActionPage({ token, roleid }) {
   const [organizaton, setOrganization] = useState([]);
@@ -33,6 +35,19 @@ export default function ActionPage({ token, roleid }) {
     setOrganizationId(id);
     setNamaOrganisasi(name);
   };
+
+  const presensi = (...args) =>
+    fetch(...args, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+        Accept: "application/json",
+      },
+    }).then((res) => res.json());
+
+  const { data: dataPresensi, isLoading: loadingPresensi } = useSWR(`${process.env.NEXT_PUBLIC_API_BASE_URL}/data-presensi?organization_id=${organizationId}`, presensi, {
+    refreshInterval: 1000,
+  });
 
   return (
     <div className="nk-content">
@@ -114,30 +129,101 @@ export default function ActionPage({ token, roleid }) {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="tb-tnx-item">
-                      <td className="tb-tnx-id">
-                        <a href="#">
-                          <span>1</span>
-                        </a>
-                      </td>
-                      <td className="tb-tnx-info">
-                        <div className="tb-tnx-desc">
-                          <span className="title">Sena jagat</span>
-                        </div>
-                        {/* <div className="tb-tnx-date">
+                    {loadingPresensi ? (
+                      <tr className="tb-tnx-item">
+                        <td className="tb-tnx-id">
+                          <a href="#">
+                            <span>
+                              <ul className="preview-list g-1">
+                                <li className="preview-item">
+                                  <div className="spinner-border spinner-border-sm" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                  </div>
+                                </li>
+                              </ul>
+                            </span>
+                          </a>
+                        </td>
+                        <td className="tb-tnx-info">
+                          <div className="tb-tnx-desc">
+                            <span className="title">
+                              <ul className="preview-list g-1">
+                                <li className="preview-item">
+                                  <div className="spinner-border spinner-border-sm" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                  </div>
+                                </li>
+                                <li className="preview-item">
+                                  <div className="spinner-grow spinner-grow-sm" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                  </div>
+                                </li>
+                              </ul>
+                            </span>
+                          </div>
+                          {/* <div className="tb-tnx-date">
                           <span className="date">10-05-2019</span>
                           <span className="date">10-13-2019</span>
                         </div> */}
-                      </td>
-                      <td className="tb-tnx-amount">
-                        <div className="tb-tnx-total">
-                          <span className="amount">10-05-2019</span>
-                        </div>
-                        {/* <div className="tb-tnx-status">
+                        </td>
+                        <td className="tb-tnx-amount">
+                          <div className="tb-tnx-total">
+                            <span className="amount">
+                              <ul className="preview-list g-1">
+                                <li className="preview-item">
+                                  <div className="spinner-border spinner-border-sm" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                  </div>
+                                </li>
+                                <li className="preview-item">
+                                  <div className="spinner-grow spinner-grow-sm" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                  </div>
+                                </li>
+                              </ul>
+                            </span>
+                          </div>
+                          {/* <div className="tb-tnx-status">
                           <span className="badge badge-dot bg-warning">Due</span>
                         </div> */}
-                      </td>
-                    </tr>
+                        </td>
+                      </tr>
+                    ) : (
+                      dataPresensi.data.map((value, i) => (
+                        <tr className="tb-tnx-item" key={i}>
+                          <td className="tb-tnx-id">
+                            <a href="#">
+                              <span>{i + 1}</span>
+                            </a>
+                          </td>
+                          <td className="tb-tnx-info">
+                            <div className="tb-tnx-desc">
+                              <span className="title">{value.name}</span>
+                            </div>
+                            {/* <div className="tb-tnx-date">
+                          <span className="date">10-05-2019</span>
+                          <span className="date">10-13-2019</span>
+                        </div> */}
+                          </td>
+                          <td className="tb-tnx-amount">
+                            <div className="tb-tnx-date">
+                              <span className="amount">
+                                {(() => {
+                                  const parsedDate = new Date(value.created_at);
+
+                                  // Format tanggal sesuai dengan keinginan Anda
+                                  const formattedDate = format(parsedDate, "dd MMM yyyy, hh:mm a");
+                                  return formattedDate;
+                                })()}
+                              </span>
+                            </div>
+                            {/* <div className="tb-tnx-status">
+                          <span className="badge badge-dot bg-warning">Due</span>
+                        </div> */}
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
