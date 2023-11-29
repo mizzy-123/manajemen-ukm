@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import GetUser from "@/api/getUser";
 import deleteToken from "@/cookie/deleteToken";
 import SaveRole from "@/cookie/saveRole";
+import Link from "next/link";
 
 export default function Header({ token, roleid }) {
   // const [currentRole, setCurrentRole] = useState(0);
@@ -193,10 +194,10 @@ export default function Header({ token, roleid }) {
                         </a>
                       </li> */}
                       <li>
-                        <a href="html/user-profile-setting.html">
+                        <Link href="/dashboard/account-setting/security">
                           <em className="icon ni ni-setting-alt"></em>
                           <span>Account Setting</span>
-                        </a>
+                        </Link>
                       </li>
                       {/* <li>
                         <a href="html/user-profile-activity.html">

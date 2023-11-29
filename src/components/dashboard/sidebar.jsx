@@ -114,6 +114,14 @@ function Sidebar({ role }) {
                       <span className="nk-menu-text">Data presensi</span>
                     </Link>
                   </li>
+                  <li className={`nk-menu-item ${pathname === "/dashboard/anggota-ukm" ? "active current-page" : ""}`}>
+                    <Link href="/dashboard/anggota-ukm" className="nk-menu-link">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-users-fill"></em>
+                      </span>
+                      <span className="nk-menu-text">Anggota ukm</span>
+                    </Link>
+                  </li>
                 </>
               )}
               {role == 3 && (
