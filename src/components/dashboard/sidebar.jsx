@@ -122,6 +122,14 @@ function Sidebar({ role }) {
                       <span className="nk-menu-text">Anggota ukm</span>
                     </Link>
                   </li>
+                  <li className={`nk-menu-item ${pathname === "/dashboard/edit-ukm" ? "active current-page" : ""}`}>
+                    <Link href="/dashboard/edit-ukm" className="nk-menu-link">
+                      <span className="nk-menu-icon">
+                        <em className="icon ni ni-property"></em>
+                      </span>
+                      <span className="nk-menu-text">Edit ukm</span>
+                    </Link>
+                  </li>
                 </>
               )}
               {role == 3 && (
