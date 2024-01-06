@@ -1,4 +1,11 @@
+"use client";
+
+import { useContext } from "react";
+import { AppContext } from "./actionPage";
+
 export default function ActionContent() {
+  const { token, roleid, profile } = useContext(AppContext);
+  console.log("profile", profile);
   return (
     <>
       <div className="nk-content ">
@@ -14,7 +21,7 @@ export default function ActionContent() {
                           <div className="nk-block-head-content">
                             <h4 className="nk-block-title">Personal Information</h4>
                             <div className="nk-block-des">
-                              <p>Basic info, like your name and address, that you use on Nio Platform.</p>
+                              <p>Basic info, like your name and phone number</p>
                             </div>
                           </div>
                           <div className="nk-block-head-content align-self-start d-lg-none">
@@ -32,7 +39,7 @@ export default function ActionContent() {
                           <div className="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit">
                             <div className="data-col">
                               <span className="data-label">Full Name</span>
-                              <span className="data-value">Abu Bin Ishtiyak</span>
+                              <span className="data-value">{profile.data.name}</span>
                             </div>
                             <div className="data-col data-col-end">
                               <span className="data-more">
@@ -42,8 +49,8 @@ export default function ActionContent() {
                           </div>
                           <div className="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit">
                             <div className="data-col">
-                              <span className="data-label">Display Name</span>
-                              <span className="data-value">Ishtiyak</span>
+                              <span className="data-label">NIM</span>
+                              <span className="data-value">{profile.data.nim}</span>
                             </div>
                             <div className="data-col data-col-end">
                               <span className="data-more">
@@ -54,7 +61,7 @@ export default function ActionContent() {
                           <div className="data-item">
                             <div className="data-col">
                               <span className="data-label">Email</span>
-                              <span className="data-value">info@softnio.com</span>
+                              <span className="data-value">{profile.data.email}</span>
                             </div>
                             <div className="data-col data-col-end">
                               <span className="data-more disable">
@@ -65,76 +72,12 @@ export default function ActionContent() {
                           <div className="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit">
                             <div className="data-col">
                               <span className="data-label">Phone Number</span>
-                              <span className="data-value text-soft">Not add yet</span>
+                              <span className="data-value text-soft">{profile.data.no_telepon !== null ? profile.data.no_telepon : "-----"}</span>
                             </div>
                             <div className="data-col data-col-end">
                               <span className="data-more">
                                 <em className="icon ni ni-forward-ios"></em>
                               </span>
-                            </div>
-                          </div>
-                          <div className="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit">
-                            <div className="data-col">
-                              <span className="data-label">Date of Birth</span>
-                              <span className="data-value">29 Feb, 1986</span>
-                            </div>
-                            <div className="data-col data-col-end">
-                              <span className="data-more">
-                                <em className="icon ni ni-forward-ios"></em>
-                              </span>
-                            </div>
-                          </div>
-                          <div className="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit" data-tab-target="#address">
-                            <div className="data-col">
-                              <span className="data-label">Address</span>
-                              <span className="data-value">
-                                2337 Kildeer Drive,
-                                <br />
-                                Kentucky, Canada
-                              </span>
-                            </div>
-                            <div className="data-col data-col-end">
-                              <span className="data-more">
-                                <em className="icon ni ni-forward-ios"></em>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="nk-data data-list">
-                          <div className="data-head">
-                            <h6 className="overline-title">Preferences</h6>
-                          </div>
-                          <div className="data-item">
-                            <div className="data-col">
-                              <span className="data-label">Language</span>
-                              <span className="data-value">English (United State)</span>
-                            </div>
-                            <div className="data-col data-col-end">
-                              <a href="#" className="link link-primary">
-                                Change Language
-                              </a>
-                            </div>
-                          </div>
-                          <div className="data-item">
-                            <div className="data-col">
-                              <span className="data-label">Date Format</span>
-                              <span className="data-value">M d, YYYY</span>
-                            </div>
-                            <div className="data-col data-col-end">
-                              <a href="#" className="link link-primary">
-                                Change
-                              </a>
-                            </div>
-                          </div>
-                          <div className="data-item">
-                            <div className="data-col">
-                              <span className="data-label">Timezone</span>
-                              <span className="data-value">Bangladesh (GMT +6)</span>
-                            </div>
-                            <div className="data-col data-col-end">
-                              <a href="#" className="link link-primary">
-                                Change
-                              </a>
                             </div>
                           </div>
                         </div>
