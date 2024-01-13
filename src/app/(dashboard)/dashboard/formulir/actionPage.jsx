@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import ActionTable from "./actionTable";
 import PostRecruitment from "@/api/postRecruitment";
+import PostEditFormulir from "@/api/postEditFormulir";
 
 export default function ActionPage({ token, roleid }) {
   //   const [closeModal, setCloseModal] = useState(false);
@@ -13,6 +14,7 @@ export default function ActionPage({ token, roleid }) {
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [message, setMessage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({});
   const SaveSubmit = async (e) => {
     // setCloseModal(true);
     e.preventDefault();
@@ -49,6 +51,10 @@ export default function ActionPage({ token, roleid }) {
     console.log(formData.get("expired"));
     console.log(formData.get("organization_id"));
   };
+
+  console.log("====================================");
+  console.log("form", form);
+  console.log("====================================");
   return (
     <>
       <div className="nk-content ">
@@ -91,7 +97,7 @@ export default function ActionPage({ token, roleid }) {
                       </li>
                     </div>
                   </div>
-                  <ActionTable token={token} roleid={roleid.value} ukm={(data) => setUkm(data)} idukm={(data) => setUkmId(data)} />
+                  <ActionTable form={(e) => setForm(e)} token={token} roleid={roleid.value} ukm={(data) => setUkm(data)} idukm={(data) => setUkmId(data)} />
                 </div>
               </div>
             </div>
@@ -140,6 +146,97 @@ export default function ActionPage({ token, roleid }) {
                       <em className="icon ni ni-calendar"></em>
                     </div>
                     <input name="expired" type="text" className="form-control date-picker" data-date-format="yyyy-mm-dd" required />
+                  </div>
+                  <div className="form-note">
+                    Date format <code>yyyy-mm-dd</code>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <button type="submit" className="btn btn-lg btn-primary" disabled={loading}>
+                    {loading ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        <span role="status">Loading...</span>
+                      </>
+                    ) : (
+                      "Submit"
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer bg-light">
+              <span className="sub-text">Modal Footer Text</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="modal fade" id="modalEdit">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            {alert ? (
+              <div className="alert alert-danger" role="alert">
+                {message}
+              </div>
+            ) : (
+              ""
+            )}
+
+            {alertSuccess ? (
+              <div className="alert alert-success" role="alert">
+                {message}
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="modal-header">
+              <h5 className="modal-title">Tambah rekruitment</h5>
+              <a href="#" className="close" data-bs-dismiss="modal" aria-label="Close" ref={refSubmit}>
+                <em className="icon ni ni-cross"></em>
+              </a>
+            </div>
+            <div className="modal-body">
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setLoading(true);
+                  const formData = new FormData(e.currentTarget);
+                  const expired = formData.get("expired");
+                  try {
+                    const response = await PostEditFormulir({ token: token, expired: expired, formid: form.id });
+                    if (response.status == 200) {
+                      setMessage(response.data.message);
+                      setAlertSuccess(true);
+                      setAlert(false);
+                      setLoading(false);
+                      formData.set("expired", "");
+                      setTimeout(() => {
+                        setAlertSuccess(false);
+                        setAlert(false);
+                        refSubmit.current.click();
+                      }, 2000);
+                    } else {
+                      setMessage(response.data.message);
+                      setAlert(true);
+                      setAlertSuccess(false);
+                      setLoading(false);
+                    }
+                  } catch (error) {
+                    setMessage(error.response.data.message);
+                    setAlert(true);
+                    setAlertSuccess(false);
+                    setLoading(false);
+                  }
+                  console.log("expired", expired);
+                }}
+              >
+                <div className="form-group">
+                  <label className="form-label">Datepicker with Icon</label>
+                  <div className="form-control-wrap">
+                    <div className="form-icon form-icon-left">
+                      <em className="icon ni ni-calendar"></em>
+                    </div>
+                    <input name="expired" type="text" className="form-control date-picker" value={form.expired} data-date-format="yyyy-mm-dd" required />
                   </div>
                   <div className="form-note">
                     Date format <code>yyyy-mm-dd</code>

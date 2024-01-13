@@ -91,6 +91,8 @@ export default function ActionContent() {
     }
   );
 
+  console.log("dataAllUser", dataAllUser);
+
   return (
     <>
       {isClient && (
@@ -102,9 +104,7 @@ export default function ActionContent() {
                   <div className="nk-block-between">
                     <div className="nk-block-head-content">
                       <h3 className="nk-block-title page-title">Users Lists</h3>
-                      <div className="nk-block-des text-soft">
-                        <p>You have total 2,595 users.</p>
-                      </div>
+                      <div className="nk-block-des text-soft">{/* <p>You have total 2,595 users.</p> */}</div>
                     </div>
                     <div className="nk-block-head-content"></div>
                   </div>
@@ -395,6 +395,17 @@ export default function ActionContent() {
                                     {value.role.map((value, i) => (
                                       <div key={i}>{value.name}</div>
                                     ))}
+                                    {/* {(async () => {
+                                      const role = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/get-role?user_id=${value.id}&organization_id=${idUkm}`, {
+                                        headers: {
+                                          Accept: "application/json",
+                                        },
+                                        cache: "no-store",
+                                      });
+                                      const dataRole = await role.json();
+                                      console.log("dataRole", dataRole);
+                                      return dataRole.data.name;
+                                    })()} */}
                                   </span>
                                 </div>
                                 <div className="nk-tb-col tb-col-sm">

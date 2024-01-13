@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 export default function ChangePassword({ params }) {
   const cookieStore = cookies();
-  const email = cookieStore.get("email");
+  // const email = cookieStore.get("email");
   return (
     <main className="nk-body bg-white npc-default pg-auth">
       <div className="nk-app-root">
@@ -38,7 +38,7 @@ export default function ChangePassword({ params }) {
                         </div>
                       </div>
                     </div>
-                    <ActionChange token={params.token} email={email.value} />
+                    <ActionChange token={params.token} />
                     <div className="form-note-s2 pt-5">
                       <Link href="/login">
                         <strong>Return to login</strong>

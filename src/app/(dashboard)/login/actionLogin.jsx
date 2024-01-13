@@ -72,7 +72,7 @@ export default function ActionLogin() {
             <label className="form-label" htmlFor="password">
               Passcode
             </label>
-            <a className="link link-primary link-sm" tabIndex="-1" href="html/pages/auths/auth-reset.html">
+            <a className="link link-primary link-sm" tabIndex="-1" href="/reset-password">
               Forgot Code?
             </a>
           </div>

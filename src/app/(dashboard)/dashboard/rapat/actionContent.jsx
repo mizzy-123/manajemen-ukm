@@ -5,6 +5,8 @@ import { AppContext } from "./actionPage";
 import GetMyOrganization from "@/api/getMyOrganization";
 import useSWR from "swr";
 import { format } from "date-fns";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function ActionContent() {
   const { token, roleid, setDataOrganisasi, setDataProker } = useContext(AppContext);
@@ -273,7 +275,64 @@ export default function ActionContent() {
                                     </a>
                                   </li> */}
                                   <li>
-                                    <a href="#" className="text-danger">
+                                    <a
+                                      href="#"
+                                      className="text-danger"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        Swal.fire({
+                                          title: "Are you sure?",
+                                          text: "You wanna delete this",
+                                          icon: "warning",
+                                          showCancelButton: true,
+                                          confirmButtonText: "Yes, delete it!",
+                                        }).then(async function (result) {
+                                          if (result.value) {
+                                            // Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                                            let timerInterval;
+
+                                            // Tampilkan SweetAlert dengan pesan "Loading"
+                                            Swal.fire({
+                                              title: "Loading...",
+                                              html: "Please wait.",
+                                              timerProgressBar: true,
+                                              didOpen: () => {
+                                                Swal.showLoading();
+                                              },
+                                              willClose: () => {
+                                                clearInterval(timerInterval);
+                                              },
+                                              showConfirmButton: false, // Sembunyikan tombol "OK"
+                                            });
+
+                                            try {
+                                              const response = await axios.post(
+                                                `${process.env.NEXT_PUBLIC_API_BASE_URL}/delete-rapat-proker/${value.id}`,
+                                                {},
+                                                {
+                                                  headers: {
+                                                    Accept: "application/json",
+                                                    Authorization: `Bearer ${token.value}`,
+                                                  },
+                                                }
+                                              );
+
+                                              if (response.status == 200) {
+                                                Swal.close();
+                                                Swal.fire("Reseted!", "Deleted succesfull.", "success");
+                                              }
+                                            } catch (error) {
+                                              Swal.close();
+                                              Swal.fire({
+                                                icon: "error",
+                                                title: "Error",
+                                                text: error.response.data.message,
+                                              });
+                                            }
+                                          }
+                                        });
+                                      }}
+                                    >
                                       Remove
                                     </a>
                                   </li>

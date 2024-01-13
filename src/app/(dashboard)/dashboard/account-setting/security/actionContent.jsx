@@ -1,6 +1,28 @@
+"use client";
+
 import Link from "next/link";
+import { AppContext } from "./actionPage";
+import { useContext } from "react";
+import useSWR from "swr";
+import { format } from "date-fns";
 
 export default function ActionContent() {
+  const { token, roleid } = useContext(AppContext);
+
+  const me = (...args) =>
+    fetch(...args, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+        Accept: "application/json",
+      },
+    }).then((res) => res.json());
+
+  const { data: dataMe, isLoading: loadingMe } = useSWR(`${process.env.NEXT_PUBLIC_API_BASE_URL}/me`, me, {
+    refreshInterval: 1000,
+  });
+
+  console.log("me", dataMe);
   return (
     <>
       <div className="nk-content ">
@@ -44,7 +66,18 @@ export default function ActionContent() {
                                     </li>
                                     <li>
                                       <em className="text-soft text-date fs-12px">
-                                        Last changed: <span>Oct 2, 2019</span>
+                                        Last changed:{" "}
+                                        <span>
+                                          {(() => {
+                                            if (!loadingMe) {
+                                              const parsedDate = new Date(dataMe.data.updated_at);
+
+                                              // Format tanggal sesuai dengan keinginan Anda
+                                              const formattedDate = format(parsedDate, "dd MMM yyyy, hh:mm a");
+                                              return formattedDate;
+                                            }
+                                          })()}
+                                        </span>
                                       </em>
                                     </li>
                                   </ul>

@@ -1,0 +1,281 @@
+/* Global */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+  }
+/* Global END */
+
+/* NAVBAR */
+.bg-navbar {
+    background-color: #F6F6F6 !important;
+
+}
+.navbar-nav {
+    display: flex !important;
+    justify-content: flex-end !important;
+    font-size: 90%;
+}
+.navbar-nav .nav-link {
+    margin-left: 10px; /* Untuk memberikan sedikit jarak antar elemen */
+}
+
+.p-nav {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+/* NAVBAR END */
+
+
+/* BUTTON */
+/* Button LOGIN */
+.btn-login {
+    background-color: #2A2B74 !important;
+    font-size: 90%;
+}
+/* Button POLINES */
+.button-polines {
+  font-size: 35%;
+}
+/* Button Daftar */
+.button-daftar-ukm {
+    font-size: 80%;
+    color: #ffffff;
+    background-color: #5061DE;
+  }
+
+/* Button Detail */
+.button-detail-ukm {
+    font-size: 80%;
+    color: #5061DE;
+    background-color: #ffffff;
+  }
+/* BUTTON END */
+
+
+/* CONTENT */
+/* section one */
+.section_one {
+    min-height: 100vh;
+    width: 100%;
+    background-image: url('../../public/Asset/BG.png') !important;
+    background-size: cover !important;
+}
+/* .welcome {
+  margin-left: -1.5rem;
+} */
+.logo-polines {
+  min-height: 100vh;
+  margin-right: -0rem;
+}
+.welcome-text1{
+font-family: 'Montserrat', sans-serif;
+font-size: 100%;
+font-weight: 700;
+}
+.welcome-text2{
+font-family: 'Montserrat', sans-serif;
+font-size: 60%;
+font-weight: 700;
+color: #000152;
+}
+/* section one END*/
+
+/* section two */
+.section_two {
+    min-height: 100vh;
+    width: 100%;
+}
+.div-about {
+    background-color: #F5F6FA;
+    padding: 2rem 2rem 0rem 2rem;
+    text-align: center;
+}
+/* section two END*/
+
+/* section three */
+.section_three {
+    min-height: 100vh;
+    width: 100%;
+    margin-top: 5rem;
+}
+.div-about {
+    background-color: #F5F6FA;
+    padding: 2rem 2rem 0rem 2rem;
+    text-align: center;
+}
+.ukm-count {
+    background-color: #F5F6FA;
+    padding: 2rem 2rem 0rem 2rem;
+    text-align: center;
+}
+
+/* section three END */
+/* CONTENT END*/
+
+
+/* CONTENT formulir */
+.con-form {
+    min-height: 100vh;
+    width: 100%;
+    margin-bottom: 80px;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
+}
+
+.t-form {
+    width: 100%;
+    text-align: center;
+    padding: 2rem 2rem .5rem 2rem;
+    background-color: white;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.c-form {
+    padding: 2rem 2rem 0rem 2rem;
+    width: 100%;
+    /* background-color: #5061DE; */
+}
+
+.c-button {
+    padding: 2rem 2rem 4rem 2rem;
+    /* background-color: #000152; */
+    width: 100%;
+    /* background-color: #5061DE; */
+}
+
+.button-form {
+    width: 117px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #2A2B74;
+}
+
+.button-form:hover {
+    background: white;
+    border-radius: 10px;
+    border: 2px solid #2A2B74;
+    color: #2A2B74;
+}
+
+.s-form {
+    padding: 2rem 70% 0rem 2rem;
+    width: 100%;
+    /* background-color: #5061DE; */
+}
+
+.s-form select {
+    color: #000; /* Warna teks pilihan */
+}
+
+.s-form select option {
+    color: #000; /* Warna teks pada opsi */
+}
+
+.input-text{
+    width: 100%;
+    height: 49px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 2px solid #DBDFEA;
+    color: #000;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.input-text::placeholder {
+    color: #aaa;
+}
+
+.ic-back {
+    cursor: pointer;
+}
+
+/* CONTENT END formulir */
+
+/* success page */
+.con-s {
+    min-height: 40vh;
+    width: 80%;
+    flex-shrink: 0;
+    /* margin-bottom: -70px; */
+    /* background: #515969; */
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.s-title {
+    width: 100%;
+    height: 57px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 2rem 2rem .5rem 2rem;
+    background-color: white;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.s-content {
+    padding: 2rem 2rem 0rem 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.text-content {
+    width: 742px;
+    color: #515969;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.m-success {
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+
+.s-button {
+    padding: 2rem 2rem 0rem 2rem;
+    /* background-color: #000152; */
+    width: 100%;
+    height: 100%;
+    position: relative;
+    /* background-color: #5061DE; */
+}
+
+
+
+.font {
+    color: #000;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+
+
+/* FOOTER */
+footer {
+    background-size: cover !important;
+    background-color: #5061DE !important;
+    text-align: center;
+    padding: 20px;
+}
+/* FOOTER END*/
+  

@@ -28,9 +28,7 @@ export default function ActionContent() {
               <div className="nk-block-between">
                 <div className="nk-block-head-content">
                   <h3 className="nk-block-title page-title">Users Lists</h3>
-                  <div className="nk-block-des text-soft">
-                    <p>You have total 2,595 users.</p>
-                  </div>
+                  <div className="nk-block-des text-soft">{/* <p>You have total 2,595 users.</p> */}</div>
                 </div>
                 <div className="nk-block-head-content"></div>
               </div>

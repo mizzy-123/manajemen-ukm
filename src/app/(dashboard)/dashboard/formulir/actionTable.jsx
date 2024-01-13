@@ -5,7 +5,7 @@ import GetMyOrganization from "@/api/getMyOrganization";
 import { useEffect, useState } from "react";
 import TableResult from "./tableResult";
 
-export default function ActionTable({ token, roleid, ukm, idukm }) {
+export default function ActionTable({ token, roleid, ukm, idukm, form }) {
   // const [formulir, setFormulir] = useState([]);
   const [organizaton, setOrganization] = useState([]);
   const [organizationId, setOrganizationId] = useState(null);
@@ -109,7 +109,7 @@ export default function ActionTable({ token, roleid, ukm, idukm }) {
               </th>
             </tr>
           </thead>
-          <tbody>{organizationId && <TableResult token={token} id_ukm={organizationId} roleid={roleid} />}</tbody>
+          <tbody>{organizationId && <TableResult form={(e) => form(e)} token={token} id_ukm={organizationId} roleid={roleid} />}</tbody>
         </table>
       </div>
     </>

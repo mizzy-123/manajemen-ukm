@@ -57,7 +57,7 @@ export default function ActionPage({ token, roleid }) {
           ""
         )}
         <div className="nk-block-head-content">
-          <h4 className="nk-block-title">Rapat</h4>
+          <h4 className="nk-block-title">Presensi Piket</h4>
           <p>{/* The following table can be use for <strong className="text-primary">order history, invoice listing</strong> related transaction. */}</p>
           <div className="d-flex justify-content-between">
             <div className="drodown">

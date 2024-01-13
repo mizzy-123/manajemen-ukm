@@ -1,7 +1,7 @@
 import Link from "next/link";
 import useSWR from "swr";
 
-export default function TableResult({ token, id_ukm }) {
+export default function TableResult({ token, id_ukm, form }) {
   const fetcher = (...args) =>
     fetch(...args, {
       method: "GET",
@@ -183,11 +183,24 @@ export default function TableResult({ token, id_ukm }) {
                       <Link href={`/dashboard/formulir/${value.id}`}>View</Link>
                     </li>
                     <li>
-                      <a href="#">Edit</a>
+                      <a
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalEdit"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          form({
+                            expired: value.expired,
+                            id: value.id,
+                          });
+                        }}
+                      >
+                        Edit
+                      </a>
                     </li>
-                    <li>
+                    {/* <li>
                       <a href="#">Remove</a>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
